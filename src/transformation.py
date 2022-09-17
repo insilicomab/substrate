@@ -8,7 +8,9 @@ class Transforms():
         
         self.data_transform = {
             'train': transforms.Compose([
-                transforms.Resize(cfg.train_transform.resize.image_size),
+                transforms.Resize(
+                    (cfg.train_transform.resize.image_size, cfg.train_transform.resize.image_size)
+                    ),
                 transforms.RandomHorizontalFlip(p=cfg.train_transform.random_horizontal_flip.p),
                 transforms.RandomVerticalFlip(p=cfg.train_transform.random_vertical_flip.p),
                 transforms.RandomRotation(degrees=cfg.train_transform.random_rotation.degrees),
@@ -31,7 +33,9 @@ class Transforms():
                     ),
                 ]),
             'val': transforms.Compose([
-                transforms.Resize(cfg.test_transform.resize.image_size),
+                transforms.Resize(
+                    (cfg.train_transform.resize.image_size, cfg.train_transform.resize.image_size)
+                ),
                 transforms.ToTensor(),
                 transforms.Normalize(
                     cfg.test_transform.normalize.mean,
