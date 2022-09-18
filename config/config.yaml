@@ -17,7 +17,7 @@ hydra:
 wandb:
     project: substrate
     run_name: ''
-    tags: ['cropped']
+    tags: []
     notes: 'using cropped image'
     data_dir: ${img_dir}
     model_name: ${net.model_name}
