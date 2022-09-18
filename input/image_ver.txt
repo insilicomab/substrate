@@ -1,4 +1,4 @@
-v1: original images
-v2: cropped images
-v3: cropped & flatten(RGB) images
-v4: cropped & flatten(V in HSV) images
+v1: original images(baseline), LB:0.9126214
+v2: cropped images, LB:0.9387755
+v3: cropped & flatten(RGB) images, LB: 0.9278351
+v4: cropped & flatten(V in HSV) images, LB: 0.9803922
