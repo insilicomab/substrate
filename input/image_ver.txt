@@ -1,3 +1,4 @@
 v1: original images
 v2: cropped images
 v3: cropped & flatten(RGB) images
+v4: cropped & flatten(V in HSV) images
