@@ -18,13 +18,13 @@ wandb:
     project: substrate
     run_name: ''
     tags: []
-    notes: 'using cropped image'
+    notes: 'using cropped and flatten image'
     data_dir: ${img_dir}
     model_name: ${net.model_name}
 
 
 ## User Settings ##
-img_dir: '/content/drive/MyDrive/Colab Notebooks/substrate/input/v2/train/'
+img_dir: '/content/drive/MyDrive/Colab Notebooks/substrate/input/v4/train/'
 train_master_dir: '/content/drive/MyDrive/Colab Notebooks/substrate/input/csv/train_master.csv'
 save_model_dir: '/content/drive/MyDrive/Colab Notebooks/substrate/model/'
 num_classes: 2
