@@ -2,7 +2,6 @@ import torch
 import torch.nn.functional as F
 
 import pytorch_lightning as pl
-import torchmetrics
 
 import timm
 
@@ -10,6 +9,7 @@ from omegaconf import DictConfig
 
 from .optimizer import get_optimizer
 from .losses import get_loss_fn
+from .metrics import get_metrics
 
 
 class Net(pl.LightningModule):
@@ -29,36 +29,7 @@ class Net(pl.LightningModule):
         self.loss_fn = get_loss_fn(cfg=self.cfg)
 
         # metrics
-        metrics = torchmetrics.MetricCollection(
-            [
-                torchmetrics.Accuracy(),
-                torchmetrics.Precision(
-                    num_classes=self.cfg.num_classes,
-                    average=self.cfg.metrics.precision.average,
-                ),
-                torchmetrics.Recall(
-                    num_classes=self.cfg.num_classes,
-                    average=self.cfg.metrics.recall.average,
-                ),
-                torchmetrics.Specificity(
-                    num_classes=self.cfg.num_classes,
-                    average=self.cfg.metrics.specificity.average,
-                ),
-                torchmetrics.F1Score(
-                    num_classes=self.cfg.num_classes,
-                    average=self.cfg.metrics.f1.average,
-                ),
-                torchmetrics.FBetaScore(
-                    num_classes=self.cfg.num_classes,
-                    beta=self.cfg.metrics.f_beta.beta,
-                    average=self.cfg.metrics.f_beta.average,
-                ),
-                torchmetrics.AUROC(
-                    num_classes=self.cfg.num_classes,
-                    average=self.cfg.metrics.auroc.average,
-                )
-            ]
-        )
+        metrics = get_metrics(cfg=self.cfg)
         self.train_metrics = metrics.clone(prefix='train_')
         self.val_metrics = metrics.clone(prefix='val_')
 
