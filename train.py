@@ -45,10 +45,6 @@ def main(cfg: DictConfig):
     # set seed
     pl.seed_everything(seed=cfg.seed, workers=True)
 
-    # directory to save models
-    SAVE_MODEL_PATH = cfg.save_model_dir
-    os.makedirs(SAVE_MODEL_PATH, exist_ok=True)
-
     # initialize wandb
     wandb.init(
         project=cfg.wandb.project,
