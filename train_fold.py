@@ -112,7 +112,7 @@ def main(cfg: DictConfig):
         trainer.fit(net, datamodule=datamodule)
 
         # display current fold
-        print(f'Currently, fold {i}')
+        print(f'Fold {i} is done!')
 
 
 if __name__ == '__main__':
