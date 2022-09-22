@@ -18,7 +18,7 @@ wandb:
     project: substrate
     run_name: ''
     tags: []
-    notes: 'using cropped and flatten image'
+    notes: '5fold, shuffle=True'
     data_dir: ${img_dir}
     model_name: ${net.model_name}
 
@@ -33,7 +33,7 @@ seed: 0
 
 
 skfold:
-    n_splits: 3
+    n_splits: 5
     shuffle: True
     random_state: 42
 
