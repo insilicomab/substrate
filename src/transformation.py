@@ -34,7 +34,7 @@ class Transforms():
                 ]),
             'val': transforms.Compose([
                 transforms.Resize(
-                    (cfg.train_transform.resize.image_size, cfg.train_transform.resize.image_size)
+                    (cfg.test_transform.resize.image_size, cfg.test_transform.resize.image_size)
                 ),
                 transforms.ToTensor(),
                 transforms.Normalize(
