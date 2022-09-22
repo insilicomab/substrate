@@ -112,7 +112,7 @@ callbacks:
         save_last: False
 
 trainer:
-    max_epochs: 3
+    max_epochs: 100
     gpus: 1
     accumulate_grad_batches: 32
     auto_lr_find: True
