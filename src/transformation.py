@@ -51,3 +51,22 @@ class Transforms():
         phase : 'train' or 'val'
         """
         return self.data_transform[phase](img)
+
+
+class TestTransforms():
+
+    def __init__(self, image_size):
+        
+        self.data_transform = {
+            'test': transforms.Compose([
+                transforms.Resize((image_size, image_size)),
+                transforms.ToTensor(),
+                transforms.Normalize(
+                    [0.485, 0.456, 0.406],
+                    [0.229, 0.224, 0.225]
+                    ),
+                ]),
+        }
+    
+    def __call__(self, phase, img):
+        return self.data_transform[phase](img)
