@@ -21,46 +21,7 @@ import timm
 
 import wandb
 
-from src import set_device, SubstrateDataset
-
-
-class TestTransforms():
-
-    def __init__(self, image_size):
-        
-        self.data_transform = {
-            'test': transforms.Compose([
-                transforms.Resize((image_size, image_size)),
-                transforms.ToTensor(),
-                transforms.Normalize(
-                    [0.485, 0.456, 0.406],
-                    [0.229, 0.224, 0.225]
-                    ),
-                ]),
-        }
-    
-    def __call__(self, phase, img):
-        return self.data_transform[phase](img)
-
-
-def predict_classes(model, test_dataloader, device):
-    preds = []
-    for images, _ in test_dataloader:
-        images = images.to(device)
-        
-        model.eval()
-        
-        outputs = model(images)
-        pred = torch.argmax(outputs, dim=1)
-        pred = pred.to('cpu').numpy()
-
-        preds.extend(pred)
-
-        if len(preds) % 100 == 0:
-            print(f'{len(preds)} predictions done!')
-
-    return preds
-
+from src import set_device, SubstrateDataset, TestTransforms, predict_classes
 
 
 def main(timm_name, model_name, wandb_run_path, data_ver, image_size):
