@@ -69,7 +69,7 @@ def main(timm_name, model_name, wandb_run_path, data_ver, image_size):
     device = set_device()
 
     # read data
-    test = pd.read_csv(f'/content/drive/MyDrive/Colab Notebooks/substrate/input/sample_submit.tsv', sep='\t', header=None)
+    test = pd.read_csv('/content/drive/MyDrive/Colab Notebooks/substrate/input/sample_submit.tsv', sep='\t', header=None)
 
     # image name list & dummy label list
     x_test = test[0].values
