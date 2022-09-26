@@ -7,6 +7,7 @@ from omegaconf import DictConfig
 from .optimizer import get_optimizer
 from .losses import get_loss_fn
 from .metrics import get_metrics
+from .scheduler import get_scheduler
 
 
 class Net(pl.LightningModule):
@@ -65,6 +66,7 @@ class Net(pl.LightningModule):
     
     def configure_optimizers(self):
         optimizer = get_optimizer(cfg=self.cfg, net=self.model)
-        return optimizer
+        scheduler = get_scheduler(self.cfg.scheduler, optimizer)
+        return [optimizer], [scheduler]
 
 
