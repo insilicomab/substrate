@@ -33,7 +33,7 @@ seed: 0
 
 
 train_test_split:
-    test_size: 0.3
+    test_size: 0.2
     random_state: 42
 
 train_dataloader:
@@ -99,7 +99,7 @@ metrics:
 
 callbacks:
     early_stopping:
-        enable: True
+        enable: False
         monitor: 'val_loss'
         patience: 10
         mode: 'min'
@@ -111,7 +111,7 @@ callbacks:
         save_last: False
 
 trainer:
-    max_epochs: 100
+    max_epochs: 150
     gpus: 1
     accumulate_grad_batches: 32
     auto_lr_find: True
@@ -127,3 +127,9 @@ optimizer:
     sgd:
         lr: 1e-4
         weight_decay: 1e-5
+
+scheduler:
+    name: CosineAnnealingWarmRestarts
+    CosineAnnealingWarmRestarts:
+        T_0: 10
+        eta_min: 1e-6
