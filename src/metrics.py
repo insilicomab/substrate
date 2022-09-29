@@ -27,10 +27,6 @@ def get_metrics(cfg: DictConfig):
                     beta=cfg.metrics.f_beta.beta,
                     average=cfg.metrics.f_beta.average,
                 ),
-                torchmetrics.AUROC(
-                    num_classes=cfg.num_classes,
-                    average=cfg.metrics.auroc.average,
-                )
             ]
         )
 
