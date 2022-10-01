@@ -42,13 +42,23 @@ class Transforms():
                     cfg.test_transform.normalize.std
                     ),
                 ]),
+            'test': transforms.Compose([
+                transforms.Resize(
+                    (cfg.test_transform.resize.image_size, cfg.test_transform.resize.image_size)
+                ),
+                transforms.ToTensor(),
+                transforms.Normalize(
+                    cfg.test_transform.normalize.mean,
+                    cfg.test_transform.normalize.std
+                    ),
+                ]),
         }
     
     def __call__(self, phase, img):
         """
         Parameters
         ----------
-        phase : 'train' or 'val'
+        phase : 'train' or 'val' or 'test'
         """
         return self.data_transform[phase](img)
 

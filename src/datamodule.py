@@ -31,6 +31,14 @@ class SubstrateDataModule(pl.LightningDataModule):
             transform=Transforms(cfg=self.cfg),
             phase='val'
         )
+        self.test_dataset = SubstrateDataset(
+            image_name_list=self.x_val,
+            label_list=self.y_val,
+            img_dir=self.cfg.img_dir,
+            transform=Transforms(cfg=self.cfg),
+            phase='test'
+        )
+
 
     def train_dataloader(self):   
         return DataLoader(
@@ -48,4 +56,13 @@ class SubstrateDataModule(pl.LightningDataModule):
             shuffle=self.cfg.val_dataloader.shuffle,
             num_workers=self.cfg.val_dataloader.num_workers,
             pin_memory=self.cfg.val_dataloader.pin_memory,
+            )
+    
+    def test_dataloader(self):
+        return DataLoader(
+            self.test_dataset,
+            batch_size=self.cfg.test_dataloader.batch_size,
+            shuffle=self.cfg.test_dataloader.shuffle,
+            num_workers=self.cfg.test_dataloader.num_workers,
+            pin_memory=self.cfg.test_dataloader.pin_memory,
             )

@@ -47,6 +47,12 @@ val_dataloader:
     shuffle: False # DO NOT CHANGE!!!
     num_workers: 2
     pin_memory: True
+
+test_dataloader:
+    batch_size: 1
+    shuffle: False # DO NOT CHANGE!!!
+    num_workers: 2
+    pin_memory: True
   
 train_transform:
     resize:
