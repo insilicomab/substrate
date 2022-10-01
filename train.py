@@ -107,6 +107,17 @@ def main(cfg: DictConfig):
     # train
     trainer.fit(net, datamodule=datamodule)
 
+    # test
+    trainer.test(net, datamodule=datamodule, ckpt_path="best")
+    shutil.copy2(
+        'output/classification_report.txt',
+        os.path.join(wandb.run.dir,'classification_report.txt')
+    )
+    shutil.copy2(
+        'output/confusion_matrix.png',
+        os.path.join(wandb.run.dir,'confusion_matrix.png')
+    )
+
 
 if __name__ == '__main__':
     main()
