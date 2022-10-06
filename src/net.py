@@ -77,12 +77,12 @@ class Net(pl.LightningModule):
         y = self(x)
         y_pred_proba = F.softmax(y, dim=1)
         y_pred = torch.argmax(y, dim=1)
-        y_onehot = torch.eye(self.cfg.num_classes)[t]
+        t_onehot = torch.eye(self.cfg.num_classes)[t]
         outputs = {
             'true': t.to('cpu').squeeze(),
-            'pred_proba': y_pred_proba.to('cpu').squeeze(),
+            'pred_proba': y_pred_proba.to('cpu'),
             'pred': y_pred.to('cpu').squeeze(), 
-            'pred_onehot': y_onehot.to('cpu').squeeze(),
+            'true_onehot': t_onehot.to('cpu'),
         }
         return outputs
     
@@ -95,10 +95,10 @@ class Net(pl.LightningModule):
 
         y_pred = np.array([output['pred'] for output in outputs])
 
-        y_onehot = [output['pred_onehot'] for output in outputs]
-        y_onehot = torch.cat(y_onehot, dim=0)
+        t_onehot = [output['true_onehot'] for output in outputs]
+        t_onehot = torch.cat(t_onehot, dim=0)
 
-        self._evaluate((y_true, y_pred_proba, y_pred, y_onehot))
+        self._evaluate((y_true, y_pred_proba, y_pred, t_onehot))
 
     
     def configure_optimizers(self):
@@ -108,14 +108,14 @@ class Net(pl.LightningModule):
 
 
     def _evaluate(self, ys):
-        y_true, y_pred_proba, y_pred, y_onehot = ys
-        self._log_metrics(y_true, y_pred_proba, y_pred, y_onehot)
+        y_true, y_pred_proba, y_pred, t_onehot = ys
+        self._log_metrics(y_true, y_pred_proba, y_pred, t_onehot)
         self._save_confusion_matrix(y_true, y_pred)
         self._save_classification_report(y_true, y_pred)
     
 
-    def _log_metrics(self, y_true, y_pred_proba, y_pred, y_onehot):
-        results = get_classification_metrics(y_true, y_pred_proba, y_pred, y_onehot, cfg=self.cfg)
+    def _log_metrics(self, y_true, y_pred_proba, y_pred, t_onehot):
+        results = get_classification_metrics(y_true, y_pred_proba, y_pred, t_onehot, cfg=self.cfg)
         accuracy, precision, recall, f1, specificity, kappa, auc = results
         self.log('test_accuracy', accuracy)
         self.log('test_precision', precision)
