@@ -45,7 +45,7 @@ def get_metrics(cfg: DictConfig):
     return metrics
 
 
-def get_classification_metrics(y_true, y_pred_proba, y_pred, y_onehot, cfg: DictConfig):
+def get_classification_metrics(y_true, y_pred_proba, y_pred, t_onehot, cfg: DictConfig):
     accuracy = accuracy_score(y_true, y_pred)
     precision = precision_score(y_true, y_pred, average=cfg.metrics.precision.average)
     recall = recall_score(y_true, y_pred, average=cfg.metrics.recall.average)
@@ -57,7 +57,7 @@ def get_classification_metrics(y_true, y_pred_proba, y_pred, y_onehot, cfg: Dict
         average=cfg.metrics.specificity.average
     )
     kappa = cohen_kappa_score(y_true, y_pred)
-    auc = roc_auc_score(y_onehot, y_pred_proba, average="macro")
+    auc = roc_auc_score(t_onehot, y_pred_proba, average="macro")
 
     results = (accuracy, precision, recall, f1, specificity, kappa, auc)
 
